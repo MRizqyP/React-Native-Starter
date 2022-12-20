@@ -2,9 +2,11 @@ import {View, Text, SafeAreaView} from 'react-native';
 import React from 'react';
 // import RootNavigation from './src/navigation';
 //Redux
-// import {Provider} from 'react-redux';
-// import {store} from './src/redux/store';
+import {Provider} from 'react-redux';
+import {store} from './src/app/store';
 import {ThemeProvider, Button, createTheme} from '@rneui/themed';
+import {HomeScreen} from './src/screen'
+
 
 const theme = createTheme({
   components: {
@@ -16,10 +18,19 @@ const theme = createTheme({
   },
 });
 
+console.log("blabla");
+// console.log(store);
+
+// const
+
+
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Text>Testing</Text>
+      <Provider store={store}>
+        <HomeScreen />
+      </Provider>
     </ThemeProvider>
   );
 };

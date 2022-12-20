@@ -1,7 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import {useSelector} from "react-redux";
 
-const home = () => {
+
+
+const Home = () => {
+
+const selectSelector = useSelector(state => state)
+
+
   return (
     <View>
       <Text>home</Text>
@@ -9,4 +16,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home
