@@ -1,27 +1,29 @@
-import {createSlice} from '@reduxjs/toolkit';
-
-const initialState = {
-  auth_authenticatedUser: false,
-  auth_token: {
-    token: null,
-    refreshToken: null,
-  },
-};
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {AUTH_SLICE_INITIAL_STATE} from './constant/auth-slice.constant';
+import {IAuthAuthenticatedUser, IAuthToken} from './interfaces/auth.interface';
 
 const auth = createSlice({
   name: 'auth',
-  initialState,
+  initialState: AUTH_SLICE_INITIAL_STATE,
   reducers: {
-    auth_SET_TOKEN: (state, {payload: {token, refreshToken}}) => {
+    auth_SET_TOKEN: (
+      state,
+      {payload: {token, refreshToken}}: PayloadAction<IAuthToken>,
+    ): void => {
       state.auth_token.token = token;
       state.auth_token.refreshToken = refreshToken;
     },
-    auth_SET_AUTHENTICATED_USER: (state, {payload}) => {
+    auth_SET_AUTHENTICATED_USER: (
+      state,
+      {payload}: PayloadAction<IAuthAuthenticatedUser>,
+    ): void => {
       state.auth_authenticatedUser = payload;
     },
+
     auth_LOGOUT: state => {
-      state.auth_token = initialState.auth_token;
-      state.auth_authenticatedUser = initialState.auth_authenticatedUser;
+      state.auth_token = AUTH_SLICE_INITIAL_STATE.auth_token;
+      state.auth_authenticatedUser =
+        AUTH_SLICE_INITIAL_STATE.auth_authenticatedUser;
     },
   },
 });
