@@ -5,8 +5,9 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {store} from './src/app/store';
 import {ThemeProvider, Button, createTheme} from '@rneui/themed';
-import {HomeScreen} from './src/screen'
-
+import {HomeScreen} from './src/screen';
+import {NavigationContainer} from '@react-navigation/native';
+import {AppNavigator} from './src/navigators';
 
 const theme = createTheme({
   components: {
@@ -18,18 +19,16 @@ const theme = createTheme({
   },
 });
 
-console.log("blabla");
+console.log('blabla');
 // console.log(store);
 
 // const
-
-
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <HomeScreen />
+        <AppNavigator />
       </Provider>
     </ThemeProvider>
   );

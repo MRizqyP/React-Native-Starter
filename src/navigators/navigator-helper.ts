@@ -1,5 +1,8 @@
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationOptions,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 export type DashboardParamList = {
   Beranda: undefined;
   Mobil: undefined;
@@ -77,6 +80,7 @@ export type NavigatorParamList = {
 };
 
 export type NavList = keyof Partial<NavigatorParamList>;
+export type NavigationProps = NativeStackNavigationProp<NewNavList>;
 type NewNavList = Partial<NavigatorParamList>;
 
 const getRouteName = (route: RouteProp<NewNavList, NavList>) => {
