@@ -14,7 +14,6 @@ export const apiSlice = createApi({
           `Bearer ${rootState.auth.auth_token.token}`,
         );
       }
-
       return headers;
     },
   }),
