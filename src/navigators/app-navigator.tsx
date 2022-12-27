@@ -9,7 +9,10 @@ import React from 'react';
 import {BackButton} from './components';
 import {navigationRef, useBackButtonHandler} from './navigation-utilities';
 import {getNavScreenOpt, NavigatorParamList, NavList} from './navigator-helper';
+import {useAppSelector} from '../app/hooks';
 // import {BottomSheetPool} from '@/components';
+// import '' from ''
+// import {useDispatch, useSelector} from 'react-redux';
 
 type ListScreenType = {
   name: NavList;
@@ -39,26 +42,60 @@ const darkHeaderOptions: NativeStackNavigationOptions = {
 };
 
 const AppStack = () => {
+  const authenticatedUser = useAppSelector(state => state.auth.isAuthenticated);
+
+  console.log('log redux');
+  console.log(authenticatedUser);
+
   const screens: ListScreenType[] = [
     {name: 'dashboard', component: HomeScreen},
+  ];
+
+  const screensPublic: ListScreenType[] = [
     {name: 'login', component: LoginScreen},
     {name: 'register', component: RegisterScreen},
   ];
+
+  const renderPublicScreens = () => {
+    return (
+      <Stack.Group>
+        {screensPublic.map(item => {
+          return (
+            <Stack.Screen
+              key={`screen-${item.name}`}
+              component={item.component}
+              name={item.name}
+              options={item.options}
+            />
+          );
+        })}
+      </Stack.Group>
+    );
+  };
+
+  // Render protected screens, this will be screen that user can access after user already logged in
+  const renderProtectedScreens = () => {
+    return (
+      <Stack.Group>
+        {screens.map(item => {
+          return (
+            <Stack.Screen
+              key={`screen-${item.name}`}
+              component={item.component}
+              name={item.name}
+              options={item.options}
+            />
+          );
+        })}
+      </Stack.Group>
+    );
+  };
 
   return (
     <Stack.Navigator
       initialRouteName={'dashboard'}
       screenOptions={({route}) => getNavScreenOpt(route)}>
-      {screens.map(item => {
-        return (
-          <Stack.Screen
-            key={`screen-${item.name}`}
-            component={item.component}
-            name={item.name}
-            options={item.options}
-          />
-        );
-      })}
+      {authenticatedUser ? renderProtectedScreens() : renderPublicScreens()}
     </Stack.Navigator>
   );
 };

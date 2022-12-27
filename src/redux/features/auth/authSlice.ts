@@ -12,6 +12,7 @@ const auth = createSlice({
     ): void => {
       state.auth_token.token = token;
       state.auth_token.refreshToken = refreshToken;
+      state.isAuthenticated = true;
     },
     auth_SET_AUTHENTICATED_USER: (
       state,
@@ -19,11 +20,11 @@ const auth = createSlice({
     ): void => {
       state.auth_authenticatedUser = payload;
     },
-
     auth_LOGOUT: state => {
       state.auth_token = AUTH_SLICE_INITIAL_STATE.auth_token;
       state.auth_authenticatedUser =
         AUTH_SLICE_INITIAL_STATE.auth_authenticatedUser;
+      state.isAuthenticated = false;
     },
   },
 });
